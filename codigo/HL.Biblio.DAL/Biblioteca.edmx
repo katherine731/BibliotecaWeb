@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Biblioteca.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="BibliotecaStoreContainer">
+    <EntitySet Name="Libros" EntityType="Biblioteca.Store.Libros" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Autores" EntityType="Biblioteca.Store.Autores" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Editoriales" EntityType="Biblioteca.Store.Editoriales" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ejemplares" EntityType="Biblioteca.Store.Ejemplares" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Paises" EntityType="Biblioteca.Store.Paises" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Clasificaciones" EntityType="Biblioteca.Store.Clasificaciones" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PaisEditorial" Association="Biblioteca.Store.PaisEditorial">
+      <End Role="Pais" EntitySet="Paises" />
+      <End Role="Editorial" EntitySet="Editoriales" />
+    </AssociationSet>
+    <AssociationSet Name="PaisAutor" Association="Biblioteca.Store.PaisAutor">
+      <End Role="Pais" EntitySet="Paises" />
+      <End Role="Autor" EntitySet="Autores" />
+    </AssociationSet>
+    <AssociationSet Name="AutorLibro" Association="Biblioteca.Store.AutorLibro">
+      <End Role="Autor" EntitySet="Autores" />
+      <End Role="Libro" EntitySet="Libros" />
+    </AssociationSet>
+    <AssociationSet Name="EditorialLibro" Association="Biblioteca.Store.EditorialLibro">
+      <End Role="Editorial" EntitySet="Editoriales" />
+      <End Role="Libro" EntitySet="Libros" />
+    </AssociationSet>
+    <AssociationSet Name="EjemplarLibro" Association="Biblioteca.Store.EjemplarLibro">
+      <End Role="Ejemplar" EntitySet="Ejemplares" />
+      <End Role="Libro" EntitySet="Libros" />
+    </AssociationSet>
+    <AssociationSet Name="ClasificacionLibro" Association="Biblioteca.Store.ClasificacionLibro">
+      <End Role="Clasificacion" EntitySet="Clasificaciones" />
+      <End Role="Libro" EntitySet="Libros" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Libros">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="ISBN" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Titulo" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="Resumen" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Edicion" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="FechaPublicacion" Type="datetime" Nullable="true" />
+    <Property Name="Idioma" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Observacion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Imagen" Type="varbinary(max)" Nullable="true" />
+    <Property Name="Tipo" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Autor_Id" Type="int" Nullable="true" />
+    <Property Name="Editorial_Id" Type="int" Nullable="true" />
+    <Property Name="Clasificacion_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Autores">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombres" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Apellidos" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Pais_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Editoriales">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Pais_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Ejemplares">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CodRFID" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="CodBarras" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="TipoPrestamo" Type="int" Nullable="false" />
+    <Property Name="Ubicacion" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+    <Property Name="Libro_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Paises">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Gentilicio" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clasificaciones">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="Abreviatura" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Descripcion" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="PaisEditorial">
+    <End Role="Pais" Type="Biblioteca.Store.Paises" Multiplicity="0..1" />
+    <End Role="Editorial" Type="Biblioteca.Store.Editoriales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pais">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Editorial">
+        <PropertyRef Name="Pais_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PaisAutor">
+    <End Role="Pais" Type="Biblioteca.Store.Paises" Multiplicity="0..1" />
+    <End Role="Autor" Type="Biblioteca.Store.Autores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pais">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Autor">
+        <PropertyRef Name="Pais_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AutorLibro">
+    <End Role="Autor" Type="Biblioteca.Store.Autores" Multiplicity="0..1" />
+    <End Role="Libro" Type="Biblioteca.Store.Libros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Autor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Libro">
+        <PropertyRef Name="Autor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EditorialLibro">
+    <End Role="Editorial" Type="Biblioteca.Store.Editoriales" Multiplicity="0..1" />
+    <End Role="Libro" Type="Biblioteca.Store.Libros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Editorial">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Libro">
+        <PropertyRef Name="Editorial_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EjemplarLibro">
+    <End Role="Ejemplar" Type="Biblioteca.Store.Ejemplares" Multiplicity="*" />
+    <End Role="Libro" Type="Biblioteca.Store.Libros" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Libro">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Ejemplar">
+        <PropertyRef Name="Libro_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClasificacionLibro">
+    <End Role="Clasificacion" Type="Biblioteca.Store.Clasificaciones" Multiplicity="0..1" />
+    <End Role="Libro" Type="Biblioteca.Store.Libros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clasificacion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Libro">
+        <PropertyRef Name="Clasificacion_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Biblioteca" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="BibliotecaContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Libros" EntityType="Biblioteca.Libro" />
+          <EntitySet Name="Autores" EntityType="Biblioteca.Autor" />
+          <EntitySet Name="Editoriales" EntityType="Biblioteca.Editorial" />
+          <EntitySet Name="Ejemplares" EntityType="Biblioteca.Ejemplar" />
+          <EntitySet Name="Paises" EntityType="Biblioteca.Pais" />
+          <AssociationSet Name="PaisEditorial" Association="Biblioteca.PaisEditorial">
+            <End Role="Pais" EntitySet="Paises" />
+            <End Role="Editorial" EntitySet="Editoriales" />
+          </AssociationSet>
+          <AssociationSet Name="PaisAutor" Association="Biblioteca.PaisAutor">
+            <End Role="Pais" EntitySet="Paises" />
+            <End Role="Autor" EntitySet="Autores" />
+          </AssociationSet>
+          <AssociationSet Name="AutorLibro" Association="Biblioteca.AutorLibro">
+            <End Role="Autor" EntitySet="Autores" />
+            <End Role="Libro" EntitySet="Libros" />
+          </AssociationSet>
+          <AssociationSet Name="EditorialLibro" Association="Biblioteca.EditorialLibro">
+            <End Role="Editorial" EntitySet="Editoriales" />
+            <End Role="Libro" EntitySet="Libros" />
+          </AssociationSet>
+          <AssociationSet Name="EjemplarLibro" Association="Biblioteca.EjemplarLibro">
+            <End Role="Ejemplar" EntitySet="Ejemplares" />
+            <End Role="Libro" EntitySet="Libros" />
+          </AssociationSet>
+          <EntitySet Name="Clasificaciones" EntityType="Biblioteca.Clasificacion" />
+          <AssociationSet Name="ClasificacionLibro" Association="Biblioteca.ClasificacionLibro">
+            <End Role="Clasificacion" EntitySet="Clasificaciones" />
+            <End Role="Libro" EntitySet="Libros" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Libro">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Codigo" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ISBN" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Titulo" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Resumen" Nullable="false" />
+          <Property Type="String" Name="Edicion" Nullable="false" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaPublicacion" Nullable="true" />
+          <Property Type="String" Name="Idioma" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Observacion" Nullable="false" />
+          <Property Type="Binary" Name="Imagen" Nullable="true" />
+          <Property Type="Int32" Name="Tipo" Nullable="false" />
+          <NavigationProperty Name="Autor" Relationship="Biblioteca.AutorLibro" FromRole="Libro" ToRole="Autor" />
+          <NavigationProperty Name="Editorial" Relationship="Biblioteca.EditorialLibro" FromRole="Libro" ToRole="Editorial" />
+          <NavigationProperty Name="Ejemplares" Relationship="Biblioteca.EjemplarLibro" FromRole="Libro" ToRole="Ejemplar" />
+          <NavigationProperty Name="Clasificacion" Relationship="Biblioteca.ClasificacionLibro" FromRole="Libro" ToRole="Clasificacion" />
+          <Property Type="Int32" Name="Estado" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Nombres" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Apellidos" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="Estado" Nullable="false" />
+          <NavigationProperty Name="Pais" Relationship="Biblioteca.PaisAutor" FromRole="Autor" ToRole="Pais" />
+          <NavigationProperty Name="Libros" Relationship="Biblioteca.AutorLibro" FromRole="Autor" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Editorial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="Estado" Nullable="false" />
+          <NavigationProperty Name="Pais" Relationship="Biblioteca.PaisEditorial" FromRole="Editorial" ToRole="Pais" />
+          <NavigationProperty Name="Libros" Relationship="Biblioteca.EditorialLibro" FromRole="Editorial" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Ejemplar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Codigo" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CodRFID" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="CodBarras" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="TipoPrestamo" Nullable="false" />
+          <Property Type="String" Name="Ubicacion" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="Estado" Nullable="false" />
+          <NavigationProperty Name="Libro" Relationship="Biblioteca.EjemplarLibro" FromRole="Ejemplar" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Gentilicio" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="Estado" Nullable="false" />
+          <NavigationProperty Name="Editoriales" Relationship="Biblioteca.PaisEditorial" FromRole="Pais" ToRole="Editorial" />
+          <NavigationProperty Name="Autores" Relationship="Biblioteca.PaisAutor" FromRole="Pais" ToRole="Autor" />
+        </EntityType>
+        <Association Name="PaisEditorial">
+          <End Type="Biblioteca.Pais" Role="Pais" Multiplicity="0..1" />
+          <End Type="Biblioteca.Editorial" Role="Editorial" Multiplicity="*" />
+        </Association>
+        <Association Name="PaisAutor">
+          <End Type="Biblioteca.Pais" Role="Pais" Multiplicity="0..1" />
+          <End Type="Biblioteca.Autor" Role="Autor" Multiplicity="*" />
+        </Association>
+        <Association Name="AutorLibro">
+          <End Type="Biblioteca.Autor" Role="Autor" Multiplicity="0..1" />
+          <End Type="Biblioteca.Libro" Role="Libro" Multiplicity="*" />
+        </Association>
+        <Association Name="EditorialLibro">
+          <End Type="Biblioteca.Editorial" Role="Editorial" Multiplicity="0..1" />
+          <End Type="Biblioteca.Libro" Role="Libro" Multiplicity="*" />
+        </Association>
+        <Association Name="EjemplarLibro">
+          <End Type="Biblioteca.Ejemplar" Role="Ejemplar" Multiplicity="*" />
+          <End Type="Biblioteca.Libro" Role="Libro" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="Clasificacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Nombre" Nullable="false" MaxLength="100" Type="String" />
+          <Property Name="Abreviatura" Nullable="false" MaxLength="20" Type="String" />
+          <Property Name="Descripcion" Nullable="false" MaxLength="200" Type="String" />
+          <Property Name="Estado" Nullable="false" Type="Int32" />
+          <NavigationProperty Name="Libros" Relationship="Biblioteca.ClasificacionLibro" FromRole="Clasificacion" ToRole="Libro" />
+        </EntityType>
+        <Association Name="ClasificacionLibro">
+          <End Type="Biblioteca.Clasificacion" Role="Clasificacion" Multiplicity="0..1" />
+          <End Type="Biblioteca.Libro" Role="Libro" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BibliotecaStoreContainer" CdmEntityContainer="BibliotecaContext">
+    <EntitySetMapping Name="Libros">
+      <EntityTypeMapping TypeName="IsTypeOf(Biblioteca.Libro)">
+        <MappingFragment StoreEntitySet="Libros">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+          <ScalarProperty Name="Resumen" ColumnName="Resumen" />
+          <ScalarProperty Name="Edicion" ColumnName="Edicion" />
+          <ScalarProperty Name="FechaPublicacion" ColumnName="FechaPublicacion" />
+          <ScalarProperty Name="Idioma" ColumnName="Idioma" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Autores">
+      <EntityTypeMapping TypeName="IsTypeOf(Biblioteca.Autor)">
+        <MappingFragment StoreEntitySet="Autores">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+          <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Editoriales">
+      <EntityTypeMapping TypeName="IsTypeOf(Biblioteca.Editorial)">
+        <MappingFragment StoreEntitySet="Editoriales">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ejemplares">
+      <EntityTypeMapping TypeName="IsTypeOf(Biblioteca.Ejemplar)">
+        <MappingFragment StoreEntitySet="Ejemplares">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="CodRFID" ColumnName="CodRFID" />
+          <ScalarProperty Name="CodBarras" ColumnName="CodBarras" />
+          <ScalarProperty Name="TipoPrestamo" ColumnName="TipoPrestamo" />
+          <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Paises">
+      <EntityTypeMapping TypeName="IsTypeOf(Biblioteca.Pais)">
+        <MappingFragment StoreEntitySet="Paises">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Gentilicio" ColumnName="Gentilicio" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clasificaciones">
+      <EntityTypeMapping TypeName="IsTypeOf(Biblioteca.Clasificacion)">
+        <MappingFragment StoreEntitySet="Clasificaciones">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Abreviatura" ColumnName="Abreviatura" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PaisEditorial" TypeName="Biblioteca.PaisEditorial" StoreEntitySet="Editoriales">
+      <EndProperty Name="Pais">
+        <ScalarProperty Name="Id" ColumnName="Pais_Id" />
+      </EndProperty>
+      <EndProperty Name="Editorial">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Pais_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PaisAutor" TypeName="Biblioteca.PaisAutor" StoreEntitySet="Autores">
+      <EndProperty Name="Pais">
+        <ScalarProperty Name="Id" ColumnName="Pais_Id" />
+      </EndProperty>
+      <EndProperty Name="Autor">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Pais_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AutorLibro" TypeName="Biblioteca.AutorLibro" StoreEntitySet="Libros">
+      <EndProperty Name="Autor">
+        <ScalarProperty Name="Id" ColumnName="Autor_Id" />
+      </EndProperty>
+      <EndProperty Name="Libro">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Autor_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EditorialLibro" TypeName="Biblioteca.EditorialLibro" StoreEntitySet="Libros">
+      <EndProperty Name="Editorial">
+        <ScalarProperty Name="Id" ColumnName="Editorial_Id" />
+      </EndProperty>
+      <EndProperty Name="Libro">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Editorial_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EjemplarLibro" TypeName="Biblioteca.EjemplarLibro" StoreEntitySet="Ejemplares">
+      <EndProperty Name="Libro">
+        <ScalarProperty Name="Id" ColumnName="Libro_Id" />
+      </EndProperty>
+      <EndProperty Name="Ejemplar">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Libro_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ClasificacionLibro" TypeName="Biblioteca.ClasificacionLibro" StoreEntitySet="Libros">
+      <EndProperty Name="Clasificacion">
+        <ScalarProperty Name="Id" ColumnName="Clasificacion_Id" />
+      </EndProperty>
+      <EndProperty Name="Libro">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Clasificacion_Id" IsNull="false" />
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="Biblioteca" ZoomLevel="91" >
+        <EntityTypeShape EntityType="Biblioteca.Libro" Width="1.5" PointX="3.5" PointY="0.5" Height="4.0956022135416656" />
+        <EntityTypeShape EntityType="Biblioteca.Autor" Width="1.5" PointX="3.5" PointY="5.125" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="Biblioteca.Editorial" Width="1.5" PointX="1.25" PointY="2.125" Height="1.787985026041667" />
+        <EntityTypeShape EntityType="Biblioteca.Ejemplar" Width="1.5" PointX="5.875" PointY="4.625" Height="2.7494921874999987" />
+        <EntityTypeShape EntityType="Biblioteca.Pais" Width="1.5" PointX="1.25" PointY="5.125" Height="2.1725878906249996" />
+        <AssociationConnector Association="Biblioteca.PaisEditorial">
+          <ConnectorPoint PointX="2" PointY="5.125" />
+          <ConnectorPoint PointX="2" PointY="4.1052864583333326" />
+        </AssociationConnector>
+        <AssociationConnector Association="Biblioteca.PaisAutor">
+          <ConnectorPoint PointX="2.75" PointY="6.2112939453125" />
+          <ConnectorPoint PointX="3.5" PointY="6.2112939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="Biblioteca.AutorLibro">
+          <ConnectorPoint PointX="4.25" PointY="5.125" />
+          <ConnectorPoint PointX="4.25" PointY="4.5956022135416656" />
+        </AssociationConnector>
+        <AssociationConnector Association="Biblioteca.EditorialLibro">
+          <ConnectorPoint PointX="2.75" PointY="3.1151432291666663" />
+          <ConnectorPoint PointX="3.5" PointY="3.1151432291666663" />
+        </AssociationConnector>
+        <AssociationConnector Association="Biblioteca.EjemplarLibro">
+          <ConnectorPoint PointX="7.34375" PointY="4.625" />
+          <ConnectorPoint PointX="7.34375" PointY="3.6653450520833326" />
+          <ConnectorPoint PointX="5" PointY="3.6653450520833326" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="Biblioteca.Clasificacion" PointX="5.75" PointY="0.5" Width="1.5" Height="2.172587890625" />
+        <AssociationConnector Association="Biblioteca.ClasificacionLibro">
+          <ConnectorPoint PointX="5.75" PointY="1.5862939453124998" />
+          <ConnectorPoint PointX="5" PointY="1.5862939453124998" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
