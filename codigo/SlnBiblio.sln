@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HL.Biblio.DAL", "HL.Biblio.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HL.Biblio.POCO", "HL.Biblio.POCO\HL.Biblio.POCO.csproj", "{14ECA24A-1366-4531-B98E-88969B99DF20}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HL.Biblio.BLL", "HL.Biblio.BLL\HL.Biblio.BLL.csproj", "{9D2B8A93-F822-4484-AC3D-B805B7C40D45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HL.Biblio.Web", "HL.Biblio.Web\HL.Biblio.Web.csproj", "{B35ED633-C358-4937-B6B8-148DA4107C00}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = SlnBiblio.vsmdi
@@ -22,6 +26,14 @@ Global
 		{14ECA24A-1366-4531-B98E-88969B99DF20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14ECA24A-1366-4531-B98E-88969B99DF20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14ECA24A-1366-4531-B98E-88969B99DF20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D2B8A93-F822-4484-AC3D-B805B7C40D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D2B8A93-F822-4484-AC3D-B805B7C40D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D2B8A93-F822-4484-AC3D-B805B7C40D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D2B8A93-F822-4484-AC3D-B805B7C40D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B35ED633-C358-4937-B6B8-148DA4107C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35ED633-C358-4937-B6B8-148DA4107C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35ED633-C358-4937-B6B8-148DA4107C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35ED633-C358-4937-B6B8-148DA4107C00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,383 @@
+﻿/**
+ * layout
+ */
+body
+{
+    background-color: #ddf;
+	font-family: Verdana;
+    padding: 0;
+    margin:0;
+    color: #696969;
+	font-size:12px;
+}
+
+a, img
+{
+    text-decoration:none;
+    border:none;
+}
+
+.dContenido
+{
+    margin:0;
+    padding:0;
+    background-color:#fafaff;
+}
+
+.dMenu
+{
+	border-top-right-radius:5px;
+	-moz-border-radius-topright:5px; /* Firefox */ 
+	-webkit-border-top-right-radius:5px; /* Safari y Chrome */ 
+	border-top-left-radius:5px; 
+	-moz-border-radius-topleft:5px; /* Firefox */ 
+	-webkit-border-top-left-radius:5px; /* Safari y Chrome */ 
+	border:1px solid;
+	border-color:Navy;
+	background-color:#fafff6;
+	margin-bottom:10px;
+}
+			
+.dMenu .titulo
+{
+	border-top-right-radius:5px; 
+	-moz-border-radius-topright:5px; /* Firefox */ 
+	-webkit-border-top-right-radius:5px; /* Safari y Chrome */ 
+	border-top-left-radius:5px; 
+	-moz-border-radius-topleft:5px; /* Firefox */ 
+	-webkit-border-top-left-radius:5px; /* Safari y Chrome */ 
+	padding: 5px;
+	font-weight: bold;
+	text-decoration: none;
+	background-color: #5c87b2;
+	color: White;
+}
+			
+.dMenu .opcion
+{
+	margin:5px 5px 5px 5px;
+	background-color:#fafff6;
+	color:Navy;
+	cursor:pointer;
+	font-weight:bold;
+}
+			
+.dMenu .opcion:hover
+{				
+	background-color:orange;
+}
+
+.dMenu .enlace
+{
+	color:navy;
+	text-decoration:none;
+	display:block;	
+	padding:3px 3px 3px 3px;
+}
+
+.enlace
+{
+	color:navy;
+	text-decoration:none;
+	display:block;	
+}
+
+/**************************/
+
+h1
+{
+    font-size: 2em;
+    color:white;
+    background-color:#2a5370;
+    margin:0;
+    padding: 5px;
+}
+
+h2
+{
+    font-size: 1.5em;
+    color:White;
+    background-color:#6d98c2;
+    margin:0;
+    padding: 5px;
+}
+
+/**************************/
+	
+.listado
+{
+	width:100%;
+	background-color:#fafafa;
+	border:1px solid #5c87b2;
+	border-collapse:collapse;
+	color:Navy;
+}
+
+.listado th
+{
+	background-color:#6d98c2;
+	color:White;
+	text-align:left;
+	font-size:bold;
+	padding:5px;
+}
+
+.listado .resumen
+{
+	background-color:#6d98c2;
+	color:White;
+	text-align:right;
+	padding:2px;
+}
+
+.listado td
+{
+	padding:3px;
+}
+
+.listado .tr1
+{
+	background-color:#eeeeff;
+}
+
+.listado tr:hover
+{
+	background-color:#ddf;
+}
+
+/**************************/
+			
+.formulario
+{
+	width:100%;
+	background-color:#fafafa;
+	border-collapse:separate;
+	color:Navy;
+}
+
+.formulario .tr1
+{
+    height:35px;
+}
+			
+.formulario th, td
+{
+	padding:5px;
+	font-weight:normal;
+}
+			
+.formulario th
+{
+	text-align:left;
+	font-weight:bold;
+	background-color:#eeeeff;
+}
+
+.formulario .texto3
+{
+    width:300px;
+}
+
+.formulario .texto2
+{
+    width:200px;
+}
+
+.formulario .texto4
+{
+    width:400px;
+}
+
+.formulario .mensaje
+{
+    font-style:italic;
+    font-size:smaller;
+    color:#888899;
+    font-weight:bold;
+}
+
+label.error 
+{
+    font-style:italic;
+    font-size:small;
+    color:Red;
+    margin-left:9px;
+}
+
+.campoFecha
+{
+    width:100px;
+    background-image: url('images/calendar1.png');
+    background-repeat: no-repeat; 
+    padding-left:20px;
+}
+
+fieldset
+{
+    margin-top:10px;
+    font-weight:bold;
+    padding:3px;
+}
+
+
+
+/**************************/
+			
+.dSeparador
+{
+	width:100%;
+	height:10px;
+	background-color:#6d98c2;
+}
+
+/**************************/
+
+.btNuevo
+{
+    background-color: transparent;
+    background-image: url('images/file.png');
+    background-repeat: no-repeat; 
+    background-position: left center;
+    margin-left:5px;
+    padding:5px;
+    padding-left:28px;
+    padding-right:18px;
+    cursor:pointer;
+    border:2px solid #6d98c2;
+    text-align:center;
+    font-weight:normal;
+    color:Navy;
+}
+
+.btNuevo:hover
+{
+    background-color: #eeeeff;
+}
+
+.btVolver
+{
+    background-color: transparent;
+    background-image: url('images/arrow_back.png');
+    background-repeat: no-repeat; 
+    background-position: left center;
+    padding:5px;
+    padding-left:28px;
+    padding-right:18px;
+    cursor:pointer;
+    border:2px solid #6d98c2;
+    text-align:center;
+    font-weight:normal;
+    color:Navy;
+}
+
+.btVolver:hover
+{
+    background-color: #eeeeff;
+}
+
+.btGuardar
+{
+    background-color: transparent;
+    background-image: url('images/save.png');
+    background-repeat: no-repeat; 
+    background-position: left center;
+    padding:5px;
+    padding-left:28px;
+    padding-right:18px;
+    cursor:pointer;
+    border:2px solid #6d98c2;
+    text-align:center;
+    font-weight:normal;
+    color:Navy;
+    margin:0;
+}
+
+.btGuardar:hover
+{
+    background-color: #eeeeff;
+}
+
+.btEditar
+{
+    background-color: transparent;
+    background-image: url('images/pencil1.png');
+    background-repeat: no-repeat; 
+    background-position: left center;
+    padding:5px;
+    padding-left:28px;
+    padding-right:18px;
+    cursor:pointer;
+    border:2px solid #6d98c2;
+    text-align:center;
+    font-weight:normal;
+    color:Navy;
+    margin:0;
+}
+
+.btEditar:hover
+{
+    background-color: #eeeeff;
+}
+
+.btActualizar
+{
+    background-color: transparent;
+    background-image: url('images/arrows.png');
+    background-repeat: no-repeat; 
+    background-position: left center;
+    padding:5px;
+    padding-left:28px;
+    padding-right:18px;
+    cursor:pointer;
+    border:2px solid #6d98c2;
+    text-align:center;
+    font-weight:normal;
+    color:Navy;
+    margin:0;
+}
+
+.btActualizar:hover
+{
+    background-color: #eeeeff;
+}
+
+.btAgregar
+{
+    background-color: transparent;
+    background-image: url('images/sign_plus.png');
+    background-repeat: no-repeat; 
+    background-position: left center;
+    padding:5px;
+    padding-left:28px;
+    padding-right:18px;
+    cursor:pointer;
+    border:2px solid #6d98c2;
+    text-align:center;
+    font-weight:normal;
+    color:Navy;
+    margin:0;
+}
+
+.btAgregar:hover
+{
+    background-color: #eeeeff;
+}
+
+/**************************/
+
+.dError
+{
+    position:relative;
+    background-color:#ffeeee;
+    background-image: url('images/error.gif');
+    background-repeat: no-repeat; 
+    background-position: left center;
+    padding:5px;
+    padding-left:20px;
+    padding-right:18px;
+    color:Red;
+    
+    border: 1px solid Red;
+}
+
+/**************************/

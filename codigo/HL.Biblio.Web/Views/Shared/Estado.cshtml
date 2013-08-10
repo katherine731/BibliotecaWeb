@@ -1,0 +1,11 @@
+﻿@{
+    Layout = null;
+}
+
+@if(ViewBag.estado == 1) {
+    <img src="@Url.Content("~/Content/images/sign_check.png")" alt="Activo" title="Activo" />
+} else if (ViewBag.estado == 0) {
+    <img src="@Url.Content("~/Content/images/sign_minus.png")" alt="Inactivo" title="Inactivo" />
+} else if(ViewBag.estado == -1) {
+    <img src="@Url.Content("~/Content/images/error.gif")" alt="Inactivo" title="Se produjo un error!" />
+}

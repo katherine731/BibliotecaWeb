@@ -1,0 +1,57 @@
+﻿@model HL.Biblio.Web.Models.ManejadorError
+
+@{
+    Layout = null;
+}
+
+<table width="100%">
+    <colgroup>
+        <col width="250px" />
+        <col width="auto" />
+    </colgroup>
+    <tr>
+        <th colspan="2" align="left">
+            Se produjo un error!
+        </th>
+    </tr>
+    <tr>
+        <th align="left" valign="top">
+            Mensaje:
+        </th>
+        <td>
+            @Model.Mensaje
+        </td>
+    </tr>
+    <tr>
+        <th align="left" valign="top">
+            Excepcion origen:
+        </th>
+        <td>
+            @Model.ExcepcionOrigen
+        </td>
+    </tr>
+    <tr>
+        <th align="left" valign="top">
+            Origen:
+        </th>
+        <td>
+            @Model.Origen
+        </td>
+    </tr>
+    <tr>
+        <th align="left" valign="top">
+            Sitio:
+        </th>
+        <td>
+            @Model.Sitio
+        </td>
+    </tr>
+    <tr>
+        <th align="left" valign="top">
+            Estado de la pila de llamadas:
+        </th>
+        <td>
+            @Model.EstadoPila
+        </td>
+    </tr>
+</table>
