@@ -1,0 +1,66 @@
+﻿@model HL.Biblio.POCO.Autor
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<h2>Detalle de Autor</h2>
+<fieldset>
+<legend>
+    Datos de autor
+</legend>
+    <table class="formulario">
+        <colgroup>
+            <col width="200px" />
+            <col width="auto" />
+        </colgroup>
+        <tr class="tr1">
+            <th>
+                Nombres:
+            </th>
+            <td>
+                @Model.Nombres
+            </td>
+        </tr>
+        <tr class="tr1">
+            <th>
+                Apellidos:
+            </th>
+            <td>
+                @Model.Apellidos
+            </td>
+        </tr>
+        <tr class="tr1">
+            <th>
+                Pais:
+            </th>
+            <td>
+                @Model.Pais.Nombre
+            </td>
+        </tr>
+        <tr class="tr1">
+            <th>
+                Estado:
+            </th>
+            <td>
+                @((Model.Estado == 1) ? Html.Raw("Activo") : Html.Raw("Inactivo"))
+            </td>
+        </tr>
+    </table>
+    <div class="dSeparador"></div>
+    <table class="formulario">
+        <tr>
+            <td align="left">
+                <p><a href="@Url.Action("Edit", new { id=Model.Id })">
+                    <span class="btEditar">Editar</span>
+                </a></p>
+            </td>
+            <td align="right">
+                <p><a href="@Url.Action("Index")">
+                    <span class="btVolver">Volver al listado</span>
+                </a></p>
+            </td>
+        </tr>
+    </table>
+</fieldset>
