@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AutorBLL.cs" />
     <Compile Include="Excepcion.cs" />
+    <Compile Include="LibroBLL.cs" />
     <Compile Include="PaisBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

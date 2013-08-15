@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+@{
+    if(!string.IsNullOrEmpty(ViewBag.mensaje)) {
+    <script type="text/javascript">
+        alert("@(ViewBag.mensaje)");
+    </script>
+    }
+}
+
+<table class="listado">
+    <colgroup>
+        <col width="24px" />
+        <col width="24px" />
+        <col width="24px" />
+        <col width="300px" />
+        <col width="auto" />
+    </colgroup>
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>
+            Nombre
+        </th>
+        <th>
+            País
+        </th>
+    </tr>
+    </thead>
+
+@{
+    int i=0;
+    foreach (var item in Model) {
+    <tr @((i % 2 == 0) ? new HtmlString("class=\"tr1\"") : new HtmlString(""))>
+        <td align="center">
+            <a href="@Url.Action("Edit", new { id = item.Id })">
+                <img src="@Url.Content("~/Content/images/pencil1.png")" alt="Editar" title="Editar"/>
+            </a>
+        </td>
+        <td align="center">
+            <div id="@Html.Raw("dEliminar_" + item.Id.ToString())" style="cursor:pointer;" onclick="eliminar(@item.Id)">
+                <img src="@Url.Content("~/Content/images/sign_cross.png")" alt="Eliminar" title="Eliminar" />
+            </div>
+        </td>
+        <td align="center">
+            <div id="@Html.Raw("dEstado_" + item.Id)" style="cursor:pointer;" onclick="cambiarEstado(@item.Id)">
+                @if(item.Estado == 1) {
+                    <img src="@Url.Content("~/Content/images/sign_check.png")" alt="Activo" title="Activo" />
+                } else {
+                    <img src="@Url.Content("~/Content/images/sign_minus.png")" alt="Inactivo" title="Inactivo" />
+                }
+            </div>
+        </td>
+        <td>
+            <a href="@Url.Action("Details", new { id = item.Id })" class="enlace">@item.Nombre</a>
+        </td>
+        <td>
+            @item.Pais.Nombre
+        </td>
+    </tr>
+        i++;
+    }
+}
+    <tr>
+        <th colspan="5" class="resumen">
+            Total registros: @Model.Count.ToString()
+        </th>
+    </tr>
+</table>

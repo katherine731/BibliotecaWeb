@@ -59,6 +59,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AutorController.cs" />
+    <Compile Include="Controllers\EditorialController.cs" />
     <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -166,6 +168,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Pais\Lista.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Editorial\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Editorial\Lista.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Editorial\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Editorial\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Editorial\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Autor\Index.cshtml" />
