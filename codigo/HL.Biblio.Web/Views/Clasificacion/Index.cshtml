@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function cambiarEstado(id) {
+        $.post('/Clasificacion/CambiarEstado?ClasificacionId=' + id,
+            function (data) {
+                $("#dEstado_" + id).html(data);
+            }
+        );
+    }
+
+    function eliminar(id) {
+        if (confirm('¿Eliminar el registro?')) {
+            $.post('/Clasificacion/Delete?id=' + id,
+                function (data) {
+                    $("#dContList").html(data);
+                });
+        }
+    }
+
+    $(document).ready(function () {
+        $('#sActualizar').click(function () {
+            $.post('/Clasificacion/Lista',
+            function (data) {
+                $("#dContList").html(data);
+            });
+        });
+    });
+</script>
+
+<h2>Listado de Clasificaciones</h2>
+<p>
+    <a href="@Url.Action("Create")">
+        <span class="btNuevo">Nuevo</span>
+    </a>
+    <span id="sActualizar" class="btActualizar">Actualizar</span>
+</p>
+
+<div id="dContList" class="contenido">
+    @{Html.RenderAction("Lista");}
+</div>

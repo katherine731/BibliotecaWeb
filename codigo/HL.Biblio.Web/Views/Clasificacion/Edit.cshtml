@@ -1,0 +1,93 @@
+﻿@model HL.Biblio.POCO.Clasificacion
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#nombre").focus();
+        $("#form1").validate({
+            rules: {
+                nombre: {
+                    required: true,
+                    notNumbers: true
+                },
+                abreviatura: {
+                    required: true,
+                    notNumbers: true
+                },
+                descripcion: { maxlength: 200 }
+            }
+        });
+    });
+</script>
+<h2>Editar Clasificación</h2>
+<form id="form1" name="form1" action="@Url.Action("Edit")" method="post">
+    <fieldset>
+    <legend>
+        Datos de clasificación
+    </legend>
+        <table class="formulario">
+            <colgroup>
+                <col width="200px" />
+                <col width="auto" />
+            </colgroup>
+            <tr>
+                <td colspan="2">
+                <span class="mensaje">
+                    Los campos marcados con (*) son requeridos
+                </span>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Nombre:
+                    <span class="mensaje">(*)</span>
+                </th>
+                <td>
+                    <input type="text" id="nombre" name="nombre" value="@Model.Nombre" class="texto3" maxlength="100"/>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Abreviatura:
+                    <span class="mensaje">(*)</span>
+                </th>
+                <td>
+                    <input type="text" id="abreviatura" name="abreviatura" value="@Model.Abreviatura" class="texto3" maxlength="20"/>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Descripción:
+                </th>
+                <td>
+                    <textarea id="descripcion" name="descripcion" class="texto3" rows="3" cols="0">@Model.Descripcion</textarea>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Estado:
+                </th>
+                <td>
+                    <label><input type="checkbox" id="estado" name="estado" value="1" @((Model.Estado == 1) ? Html.Raw("checked") : Html.Raw(""))/>Activo</label> 
+                </td>
+            </tr>
+        </table>
+        <div class="dSeparador"></div>
+        <table class="formulario">
+            <tr>
+                <td align="left">
+                    <input type="submit" class="btGuardar" value="Guardar" />
+                </td>
+                <td align="right">
+                    <p><a href="@Url.Action("Index")">
+                        <span class="btVolver">Volver al listado</span>
+                    </a></p>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

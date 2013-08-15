@@ -42,8 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutorBLL.cs" />
+    <Compile Include="ClasificacionBLL.cs" />
+    <Compile Include="EditorialBLL.cs" />
     <Compile Include="Excepcion.cs" />
-    <Compile Include="LibroBLL.cs" />
     <Compile Include="PaisBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
