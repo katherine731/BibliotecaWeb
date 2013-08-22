@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
+}
+
+<script type="text/javascript">
+    function cambiarEstado(id) {
+        $.post('/Ejemplar/CambiarEstado?EjemplarId=' + id,
+            function (data) {
+                $("#dEstado_" + id).html(data);
+            }
+        );
+    }
+
+    function eliminar(id) {
+        if (confirm('¿Eliminar el registro?')) {
+            $.post('/Ejemplar/Delete?id=' + id,
+                function (data) {
+                    $("#dContList").html(data);
+                });
+        }
+    }
+
+    $(document).ready(function () {
+        $('#sActualizar').click(function () {
+            $.post('/Ejemplar/Lista',
+            function (data) {
+                $("#dContList").html(data);
+            });
+        });
+
+        var msg = "Espere mientras se carga la página...";
+        var $dialog = $('#dialogEjemplar')
+		.dialog({
+		    autoOpen: false,
+		    resizable: false,
+		    width: 800,
+		    //height:600,
+		    modal: true,
+		    open: function (event, ui) { $(".ui-dialog-buttonpane").hide(); $(".ui-dialog-titlebar-close").attr("title", "Cerrar"); },
+		    close: function (event, ui) {
+		        $dialog.html(msg);
+		    }
+		});
+        $dialog.html(msg);
+
+        $('.dNuevo').click(function () {
+            contenido_nuevo();
+        });
+
+        function contenido_nuevo() {
+            $dialog.load('@Url.Action("Create", "Ejemplar", new {LibroId=ViewBag.LibroId})');
+            $dialog.dialog({ title: 'Registrar Ejemplar', width: 700, height: 380 });
+            $dialog.dialog('open');
+        }
+    });
+
+    function contenido_editar(nID) {
+        $dialog.load('/Ejemplar/Edit/' + nID);
+        $dialog.dialog({ title: 'Editar datos de ejemplar', width: 700, height: 540 });
+        $dialog.dialog('open');
+    }
+</script>
+<fieldset>
+    <legend>
+        Ejemplares
+    </legend>
+@*<h2>Ejemplares</h2>*@
+<p>
+    @*<a href="@Url.Action("Create", "Ejemplar", null)">*@
+        <span class="btNuevo dNuevo">Nuevo</span>
+    @*</a>*@
+    <span id="sActualizar" class="btActualizar">Actualizar</span>
+</p>
+<div id="dialogEjemplar" style="overflow: hidden;"></div>
+<div id="dContList" class="contenido">
+    @{Html.RenderAction("Lista", "Ejemplar", new { LibroId = ViewBag.LibroId });}
+</div>
+</fieldset>

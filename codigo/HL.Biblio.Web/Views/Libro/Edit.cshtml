@@ -1,0 +1,195 @@
+﻿@model HL.Biblio.POCO.Libro
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#codigo").focus();
+        $("#form1").validate({
+            rules: {
+                codigo: "required",
+                titulo: "required",
+                'clasificacion.id': "required",
+                'autor.id': "required",
+                'editorial.id': "required",
+                fechaPublicacion: "date"
+            }
+        });
+    });
+</script>
+<h2>Editar Libro</h2>
+<form id="form1" name="form1" action="@Url.Action("Edit")" method="post">
+@{
+    if(ViewBag.mensaje != null) {
+        HL.Biblio.Web.Models.Mensaje m = ViewBag.mensaje;
+        if(m.Tipo == HL.Biblio.Web.Models.Mensaje.TipoMsg.error) {
+    <div class="dError">
+        @m.Contenido
+    </div>
+        }
+    }
+}
+    <fieldset>
+    <legend>
+        Datos de libro
+    </legend>
+        <table class="formulario">
+            <colgroup>
+                <col width="200px" />
+                <col width="auto" />
+            </colgroup>
+            <tr>
+                <td colspan="2">
+                <span class="mensaje">
+                    Los campos marcados con (*) son requeridos
+                </span>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Código:
+                    <span class="mensaje">(*)</span>
+                </th>
+                <td>
+                    <input type="text" id="codigo" name="codigo" class="texto2" maxlength="100" autocomplete="off" value="@Model.Codigo"/>
+                    <input type="hidden" id="tipo" name="tipo" value="1" />
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Clasificación:
+                    <span class="mensaje">(*)</span>
+                </th>
+                <td>
+                    <select id="clasificacion.id" name="clasificacion.id" class="texto3">
+                    @foreach(HL.Biblio.POCO.Clasificacion c in ViewBag.Clasificaciones) {
+                        <option value="@c.Id" @((Model.Clasificacion == null) ? "" : (Model.Clasificacion.Id == c.Id) ? "selected=\"selected\"" : "")>
+                            @(c.Nombre)
+                        </option>
+                    }
+                    </select>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    ISBN:
+                </th>
+                <td>
+                    <input type="text" id="isbn" name="isbn" class="texto3" maxlength="100" value="@Model.ISBN"/>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Título:
+                    <span class="mensaje">(*)</span>
+                </th>
+                <td>
+                    <input type="text" id="titulo" name="titulo" class="texto3" maxlength="100" value="@Model.Titulo"/>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Autor:
+                    <span class="mensaje">(*)</span>
+                </th>
+                <td>
+                    <select id="autor.id" name="autor.id" class="texto3">
+                    @foreach(HL.Biblio.POCO.Autor a in ViewBag.Autores) {
+                        <option value="@a.Id" @((Model.Autor==null)?"":(Model.Autor.Id==a.Id)?"selected=\"selected\"":"")>
+                            @(a.Apellidos + " " + a.Nombres)
+                        </option>
+                    }
+                    </select>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Edición:
+                </th>
+                <td>
+                    <input type="text" id="edicion" name="edicion" class="texto3" maxlength="100" value="@Model.Edicion"/>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Editorial:
+                    <span class="mensaje">(*)</span>
+                </th>
+                <td>
+                    <select id="editorial.id" name="editorial.id" class="texto3">
+                    @foreach(HL.Biblio.POCO.Editorial e in ViewBag.Editoriales) {
+                        <option value="@e.Id" @((Model.Editorial==null)?"":(Model.Editorial.Id==e.Id)?"selected=\"selected\"":"")>
+                            @(e.Nombre)
+                        </option>
+                    }
+                    </select>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Fecha de publicación:
+                </th>
+                <td>
+                    <input type="text" id="fechaPublicacion" name="fechaPublicacion" class="campoFecha datepicker" maxlength="10" autocomplete="off" value="@((Model.FechaPublicacion==null)?"":Model.FechaPublicacion.Value.ToString("dd/MM/yyyy"))"/>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Idioma:
+                </th>
+                <td>
+                    <input type="text" id="idioma" name="idioma" class="texto3" maxlength="100" value="@Model.Idioma"/>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Resumen:
+                </th>
+                <td>
+                    <textarea id="resumen" name="resumen" class="texto3" cols="0" rows="3">@Model.Resumen</textarea>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Estado:
+                </th>
+                <td>
+                    <label><input type="checkbox" id="estado" name="estado" value="1" @((Model.Estado==1)?"checked":"") />Activo</label> 
+                </td>
+            </tr>
+        </table>
+        <div id="dEjemplarList" class="contenido">
+            <fieldset>
+                <legend>
+                    Ejemplares
+                </legend>
+            <p>
+                <span class="btNuevo dNuevo">Nuevo</span>
+                <span id="sActualizarEjemplar" class="btActualizar">Actualizar</span>
+            </p>
+            <div id="dialogEjemplarNuevo" style="overflow: hidden;"></div>
+            <div id="dialogEjemplarEditar" style="overflow: hidden;"></div>
+            <div id="dContListEjemplar" class="contenido">
+                @{Html.RenderAction("Lista", "Ejemplar", new { LibroId = Model.Id });}
+            </div>
+            </fieldset>
+        </div>
+        <div class="dSeparador"></div>
+        <table class="formulario">
+            <tr>
+                <td align="left">
+                    <input type="submit" class="btGuardar" value="Guardar" />
+                </td>
+                <td align="right">
+                    <p><a href="@Url.Action("Index")">
+                        <span class="btVolver">Volver al listado</span>
+                    </a></p>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

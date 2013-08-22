@@ -1,0 +1,136 @@
+﻿@model HL.Biblio.POCO.Libro
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles de Libro</h2>
+<form id="form1" name="form1" action="@Url.Action("Create")" method="post">
+    <fieldset>
+    <legend>
+        Datos de libro
+    </legend>
+        <table class="formulario">
+            <colgroup>
+                <col width="200px" />
+                <col width="auto" />
+            </colgroup>
+            <tr class="tr1">
+                <th>
+                    Código:
+                </th>
+                <td>
+                    @Model.Codigo
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Clasificación:
+                </th>
+                <td>
+                     @Model.Clasificacion.Nombre
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    ISBN:
+                </th>
+                <td>
+                    @Model.ISBN
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Título:
+                </th>
+                <td>
+                    @Model.Titulo
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Autor:
+                </th>
+                <td>
+                    @(Model.Autor.Apellidos + " " + Model.Autor.Nombres)
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Edición:
+                </th>
+                <td>
+                    @Model.Edicion
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Editorial:
+                </th>
+                <td>
+                    @Model.Editorial.Nombre
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Fecha de publicación:
+                </th>
+                <td>
+                    @((Model.FechaPublicacion==null)?"":Model.FechaPublicacion.Value.ToString("dd/MM/yyyy"))
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Idioma:
+                </th>
+                <td>
+                    @Model.Idioma
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Resumen:
+                </th>
+                <td>
+                    @Model.Resumen
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Estado:
+                </th>
+                <td>
+                    @((Model.Estado==1)?"Activo":"Inactivo")
+                </td>
+            </tr>
+        </table>
+
+        <div id="dEjemplarList" class="contenido">
+            <fieldset>
+                <legend>
+                    Ejemplares
+                </legend>
+            <div id="dContListEjemplar" class="contenido">
+                @{Html.RenderAction("ListaDetails", "Ejemplar", new { LibroId = Model.Id });}
+            </div>
+            </fieldset>
+        </div>
+
+        <div class="dSeparador"></div>
+        <table class="formulario">
+            <tr>
+                <td align="left">
+                    <p><a href="@Url.Action("Edit", new { id = Model.Id })">
+                    <span class="btEditar">Editar</span>
+                </a></p>
+                </td>
+                <td align="right">
+                    <p><a href="@Url.Action("Index")">
+                        <span class="btVolver">Volver al listado</span>
+                    </a></p>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

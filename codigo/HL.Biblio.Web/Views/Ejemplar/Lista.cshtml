@@ -1,0 +1,270 @@
+﻿@model System.Collections.Generic.IEnumerable<HL.Biblio.POCO.Ejemplar>
+
+@{
+    Layout = null;
+}
+@{
+    if(ViewBag.mensaje != null) {
+        HL.Biblio.Web.Models.Mensaje m = ViewBag.mensaje;
+        if(m.Tipo == HL.Biblio.Web.Models.Mensaje.TipoMsg.error) {
+    <script type="text/javascript">
+        $(function () {
+            $("#dialog-mensaje").html('<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>No se puede eliminar el registro, tiene participación en alguna transacción.');
+            $("#dialog-mensaje").dialog({
+                modal: true,
+                width: 500,
+                buttons: {
+                    "Aceptar": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+    </script>
+        }
+    }
+}
+
+<script type="text/javascript">
+    function cambiarEstadoEjemplar(id) {
+        $.post('/Ejemplar/CambiarEstado?EjemplarId=' + id,
+            function (data) {
+                $("#dEstado_" + id).html(data);
+            }
+        );
+    }
+
+//    function eliminarEjemplar(id) {
+//        if (confirm('¿Eliminar el registro?')) {
+//            $.post('/Ejemplar/Delete?id=' + id,
+//                function (data) {
+//                    $("#dContListEjemplar").html(data);
+//                });
+//        }
+//    }
+
+    $('#sActualizarEjemplar').click(function () {
+        $.post('@Url.Action("Lista", "Ejemplar", new {LibroId=ViewBag.LibroId})',
+            function (data) {
+                $("#dContListEjemplar").html(data);
+            });
+    });
+
+    $(document).ready(function () {
+        $('#sActualizar').click(function () {
+            $.post('/Ejemplar/Lista',
+            function (data) {
+                $("#dContList").html(data);
+            });
+        });
+
+        var msg = "Espere mientras se carga la página...";
+
+        $('.dNuevo').click(function () {
+            var $dialog = $('#dialogEjemplarNuevo')
+		    .dialog({
+		        autoOpen: false,
+		        resizable: false,
+		        modal: true,
+		        title: 'Registrar Ejemplar',
+		        width: 700,
+		        height: 410,
+		        open: function (event, ui) { $(".ui-dialog-titlebar-close").attr("title", "Cerrar"); },
+		        close: function (event, ui) {
+		            $dialog.html(msg);
+		        },
+		        buttons: {
+		            "Guardar": function () {
+		                var $form = $('#formEjemplar', $(this));
+		                if ($form.valid()) {
+		                    $form.submit(function () {
+		                        $.ajax({
+		                            url: '@Url.Action("Create", "Ejemplar")',
+		                            type: "POST",
+		                            data: $form.serialize(),
+		                            success: function (result) {
+		                                if (result.trim().substring(0, 12) == "<!--error-->") {
+		                                    $dialog.dialog({height: 440});
+		                                    $dialog.html(result);
+		                                } else {
+		                                    $('#dContListEjemplar').html(result);
+		                                    $dialog.dialog('close');
+		                                }
+		                            }
+		                        });
+		                        return false;
+		                    });
+		                    $form.submit();
+		                }
+		            },
+		            "Cerrar": function () { $(this).dialog('close'); }
+		        }
+		    });
+            $dialog.html(msg);
+            $dialog.load('@Url.Action("Create", "Ejemplar", new {LibroId=ViewBag.LibroId})');
+            $dialog.dialog('open');
+        });
+
+        $('.dEditar').click(function () {
+            var nID = $(this).attr("id").split("_")[1];
+            var $dialog = $('#dialogEjemplarEditar')
+		    .dialog({
+		        autoOpen: false,
+		        resizable: false,
+		        modal: true,
+		        title: 'Editar Ejemplar',
+		        width: 700,
+		        height: 410,
+		        open: function (event, ui) { $(".ui-dialog-titlebar-close").attr("title", "Cerrar"); },
+		        close: function (event, ui) {
+		            $dialog.html(msg);
+		        },
+		        buttons: {
+		            "Guardar": function () {
+		                var $form = $('#formEjemplar', $(this));
+		                if ($form.valid()) {
+		                    $form.submit(function () {
+		                        $.ajax({
+		                            url: '/Ejemplar/Edit/' + nID,
+		                            type: "POST",
+		                            data: $form.serialize(),
+		                            success: function (result) {
+		                                if (result.trim().substring(0, 12) == "<!--error-->") {
+		                                    $dialog.dialog({ height: 440 });
+		                                    $dialog.html(result);
+		                                } else {
+		                                    $('#dContListEjemplar').html(result);
+		                                    $dialog.dialog('close');
+		                                }
+		                            }
+		                        });
+		                        return false;
+		                    });
+		                    $form.submit();
+		                }
+		            },
+		            "Cerrar": function () { $(this).dialog('close'); }
+		        }
+		    });
+		    $dialog.html(msg);
+            $dialog.load('/Ejemplar/Edit/' + nID);
+            $dialog.dialog('open');
+        });
+
+        $('.dEliminar').click(function () {
+            var id = $(this).attr("id").split('_')[1];
+            $("#dialog-confirm").html('<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>¿Eliminar el registro?');
+            $("#dialog-confirm").dialog({
+                resizable: false,
+                height: 130,
+                modal: true,
+                buttons: {
+                    "Aceptar": function () {
+                        $.post('/Ejemplar/Delete?id=' + id,
+                            function (data) {
+                                $("#dContListEjemplar").html(data);
+                            });
+                        $(this).dialog("close");
+                    },
+                    "Cancelar": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+    });
+</script>
+<div id="dialog-mensaje" title="Eliminar" style="overflow: hidden;"></div>
+<div id="dialog-confirm" title="Eliminar" style="overflow: hidden;"></div>
+<table class="listado">
+    <colgroup>
+        <col width="24px" />
+        <col width="24px" />
+        <col width="24px" />
+        <col width="200px" />
+        <col width="200px" />
+        <col width="200px" />
+        <col width="auto" />
+        <col width="200px" />
+    </colgroup>
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>
+            Código
+        </th>
+        <th>
+            Cód. Barras
+        </th>
+        <th>
+            Cód. RFID
+        </th>
+        <th>
+            Ubicación
+        </th>
+        <th>
+            Prestamo para
+        </th>
+    </tr>
+    </thead>
+@{
+    int i=0;
+    foreach(var item in Model) {
+    <tr @((i % 2 == 0) ? new HtmlString("class=\"tr1\"") : new HtmlString(""))>
+        <td align="center">
+            <div id="@Html.Raw("dEditar_" + item.Id.ToString())" class="dEditar" style="cursor:pointer;">
+                <img src="@Url.Content("~/Content/images/pencil1.png")" alt="Editar" title="Editar"/>
+            </div>
+        </td>
+        <td align="center">
+            <div id="@Html.Raw("dEliminar_" + item.Id.ToString())" class="dEliminar" style="cursor:pointer;">
+                <img src="@Url.Content("~/Content/images/sign_cross.png")" alt="Eliminar" title="Eliminar" />
+            </div>
+        </td>
+        <td align="center">
+            <div id="@Html.Raw("dEstado_" + item.Id)" style="cursor:pointer;" onclick="cambiarEstadoEjemplar(@item.Id)">
+                @if(item.Estado == 1) {
+                    <img src="@Url.Content("~/Content/images/sign_check.png")" alt="Activo" title="Activo" />
+                } else {
+                    <img src="@Url.Content("~/Content/images/sign_minus.png")" alt="Inactivo" title="Inactivo" />
+                }
+            </div>
+        </td>
+        <td>
+            @item.Codigo
+        </td>
+        <td>
+            @item.CodBarras
+        </td>
+        <td>
+            @item.CodRFID
+        </td>
+        <td>
+            @item.Ubicacion
+        </td>
+        <td>
+            @{
+                string tipo = "";
+                switch(item.TipoPrestamo) {
+                    case 1:
+                        tipo = "Sala";
+                        break;
+                    case 2:
+                        tipo = "Sala y domicilio";
+                        break;
+                }
+            }
+            @tipo
+        </td>
+    </tr>
+        i++;
+    }
+}
+    <tr>
+        <th colspan="8" class="resumen">
+            Total registros: @Model.Count().ToString()
+        </th>
+    </tr>
+</table>

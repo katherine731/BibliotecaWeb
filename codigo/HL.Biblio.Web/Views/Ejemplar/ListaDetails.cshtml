@@ -1,0 +1,90 @@
+﻿@model System.Collections.Generic.IEnumerable<HL.Biblio.POCO.Ejemplar>
+
+@{
+    Layout = null;
+}
+@{
+    if(ViewBag.mensaje != null) {
+        HL.Biblio.Web.Models.Mensaje m = ViewBag.mensaje;
+        if(m.Tipo == HL.Biblio.Web.Models.Mensaje.TipoMsg.error) {
+    <script type="text/javascript">
+        alert("No se puede eliminar el registro, tiene participación en alguna transacción.");
+    </script>
+        }
+    }
+}
+
+<table class="listado">
+    <colgroup>
+        <col width="200px" />
+        <col width="200px" />
+        <col width="200px" />
+        <col width="auto" />
+        <col width="200px" />
+        <col width="50px" />
+    </colgroup>
+    <thead>
+    <tr>
+        <th>
+            Código
+        </th>
+        <th>
+            Cód. Barras
+        </th>
+        <th>
+            Cód. RFID
+        </th>
+        <th>
+            Ubicación
+        </th>
+        <th>
+            Prestamo para
+        </th>
+        <th align="center">
+            Activo
+        </th>
+    </tr>
+    </thead>
+@{
+    int i=0;
+    foreach(var item in Model) {
+    <tr @((i % 2 == 0) ? new HtmlString("class=\"tr1\"") : new HtmlString(""))>
+    <td>
+            @item.Codigo
+        </td>
+        <td>
+            @item.CodBarras
+        </td>
+        <td>
+            @item.CodRFID
+        </td>
+        <td>
+            @item.Ubicacion
+        </td>
+        <td>
+            @{
+                string tipo = "";
+                switch(item.TipoPrestamo) {
+                    case 1:
+                        tipo = "Sala";
+                        break;
+                    case 2:
+                        tipo = "Sala y domicilio";
+                        break;
+                }
+            }
+            @tipo
+        </td>
+         <td align="center">
+            @((item.Estado == 1) ? "Si" : "No")
+        </td>
+    </tr>
+        i++;
+    }
+}
+    <tr>
+        <th colspan="6" class="resumen">
+            Total registros: @Model.Count().ToString()
+        </th>
+    </tr>
+</table>

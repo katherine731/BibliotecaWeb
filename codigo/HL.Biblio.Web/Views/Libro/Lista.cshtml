@@ -1,0 +1,143 @@
+﻿@model System.Collections.Generic.IEnumerable<HL.Biblio.POCO.LibroDet>
+
+@{
+    Layout = null;
+}
+@{
+    if(ViewBag.mensaje != null) {
+        HL.Biblio.Web.Models.Mensaje m = ViewBag.mensaje;
+        if(m.Tipo == HL.Biblio.Web.Models.Mensaje.TipoMsg.error) {
+    <script type="text/javascript">
+        $(function () {
+            $("#dialog-mensaje").html('<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>No se puede eliminar el registro, tiene participación en alguna transacción.');
+            $("#dialog-mensaje").dialog({
+                modal: true,
+                width: 500,
+                buttons: {
+                    "Aceptar": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+    </script>
+        }
+    }
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.dEliminar').click(function () {
+            var id = $(this).attr("id").split('_')[1];
+            $("#dialog-confirm").html('<span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>¿Eliminar el registro?');
+            $("#dialog-confirm").dialog({
+                resizable: false,
+                height: 130,
+                modal: true,
+                buttons: {
+                    "Aceptar": function () {
+                        $.post('/Libro/Delete?id=' + id,
+                            function (data) {
+                                $("#dContList").html(data);
+                            });
+                        $(this).dialog("close");
+                    },
+                    "Cancelar": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
+    });
+</script>
+<div id="dialog-mensaje" title="Eliminar" style="overflow: hidden;"></div>
+<div id="dialog-confirm" title="Eliminar" style="overflow: hidden;"></div>
+<table class="listado">
+    <colgroup>
+        <col width="24px" />
+        <col width="24px" />
+        <col width="24px" />
+        <col width="150px" />
+        <col width="100px" />
+        <col width="250px" />
+        <col width="250px" />
+        <col width="auto" />
+        <col width="100px" />
+    </colgroup>
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>
+            Código
+        </th>
+        <th>
+            Clasificación
+        </th>
+        <th>
+            Título
+        </th>
+        <th>
+            Autor
+        </th>
+        <th>
+            Edición
+        </th>
+         <th>
+            Ejemplares
+        </th>
+    </tr>
+    </thead>
+
+@{
+    int i=0;
+    foreach (var item in Model) {
+    <tr @((i % 2 == 0) ? new HtmlString("class=\"tr1\"") : new HtmlString(""))>
+        <td align="center">
+            <a href="@Url.Action("Edit", new { id = item.Id })">
+                <img src="@Url.Content("~/Content/images/pencil1.png")" alt="Editar" title="Editar"/>
+            </a>
+        </td>
+        <td align="center">
+            <div id="@Html.Raw("dEliminar_" + item.Id.ToString())" class="dEliminar" style="cursor:pointer;">
+                <img src="@Url.Content("~/Content/images/sign_cross.png")" alt="Eliminar" title="Eliminar" />
+            </div>
+        </td>
+        <td align="center">
+            <div id="@Html.Raw("dEstado_" + item.Id)" style="cursor:pointer;" onclick="cambiarEstado(@item.Id)">
+                @if(item.Estado == 1) {
+                    <img src="@Url.Content("~/Content/images/sign_check.png")" alt="Activo" title="Activo" />
+                } else {
+                    <img src="@Url.Content("~/Content/images/sign_minus.png")" alt="Inactivo" title="Inactivo" />
+                }
+            </div>
+        </td>
+        <td>
+            <a href="@Url.Action("Details", new { id = item.Id })" class="enlace">@item.Codigo</a>
+        </td>
+        <td>
+            <a href="@Url.Action("Details", new { id = item.Id })" class="enlace">@item.ClasifAbrev</a>
+        </td>
+        <td>
+            <a href="@Url.Action("Details", new { id = item.Id })" class="enlace">@item.Titulo</a>
+        </td>
+        <td>
+            @item.Autor
+        </td>
+        <td>
+            @item.Edicion
+        </td>
+        <td align="center">
+            @item.Copias.ToString()
+        </td>
+    </tr>
+        i++;
+    }
+}
+    <tr>
+        <th colspan="9" class="resumen">
+            Total registros: @Model.Count().ToString()
+        </th>
+    </tr>
+</table>

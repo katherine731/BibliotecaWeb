@@ -1,0 +1,105 @@
+﻿@model HL.Biblio.POCO.Ejemplar
+
+@{
+    ViewBag.Title = "Create";
+    Layout = null;
+}
+<!--error-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#codigo").focus();
+        $("#formEjemplar").validate({
+            rules: {
+                'codigo': "required"
+            }
+        });
+    });
+</script>
+<form id="formEjemplar" name="formEjemplar" action="@Url.Action("Create", "Ejemplar")" method="post">
+@{
+    if(ViewBag.mensaje != null) {
+        HL.Biblio.Web.Models.Mensaje m = ViewBag.mensaje;
+        if(m.Tipo == HL.Biblio.Web.Models.Mensaje.TipoMsg.error) {
+    <div class="dError">
+        @m.Contenido
+    </div>
+        }
+    }
+}
+    <fieldset>
+    <legend>
+        Datos de ejemplar
+    </legend>
+        <input type="hidden" name="libro.id" value="@ViewBag.LibroId" />
+        <table class="formulario">
+            <colgroup>
+                <col width="200px" />
+                <col width="auto" />
+            </colgroup>
+            <tr>
+                <td colspan="2">
+                <span class="mensaje">
+                    Los campos marcados con (*) son requeridos
+                </span>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Código:
+                    <span class="mensaje">(*)</span>
+                </th>
+                <td>
+                    <input type="text" id="codigo" name="codigo" class="texto3" maxlength="50" value="@((Model == null) ? "" : Model.Codigo)"/>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Código de barras:
+                </th>
+                <td>
+                    <input type="text" id="codbarras" name="codbarras" class="texto3" maxlength="50" value="@((Model==null)?"":Model.CodBarras)"/>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Código RFID:
+                </th>
+                <td>
+                    <input type="text" id="codrfid" name="codrfid" class="texto3" maxlength="100" value="@((Model==null)?"":Model.CodRFID)"/>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Ubicación:
+                </th>
+                <td>
+                    <input type="text" id="ubicacion" name="ubicacion" class="texto3" maxlength="100" value="@((Model==null)?"":Model.Ubicacion)"/>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Tipo de prestamo:
+                </th>
+                <td>
+                    <select id="tipoprestamo" name="tipoprestamo" class="texto3">
+                        <option value="1" @((Model == null) ? "" : (Model.TipoPrestamo == null) ? "" : (Model.TipoPrestamo == 1) ? "selected=\"selected\"" : "")>
+                            Sala
+                        </option>
+                        <option value="2" @((Model == null) ? "" : (Model.TipoPrestamo == null) ? "" : (Model.TipoPrestamo == 2) ? "selected=\"selected\"" : "")>
+                            Sala y domicilio
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="tr1">
+                <th>
+                    Estado:
+                </th>
+                <td>
+                    <label><input type="checkbox" id="estado" name="estado" value="1" @((Model==null)?"":(Model.Estado==1)?"checked":"") />Activo</label> 
+                </td>
+            </tr>
+        </table>
+        @*<div class="dSeparador"></div>*@
+    </fieldset>
+</form>
