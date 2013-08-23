@@ -247,6 +247,66 @@
   <ItemGroup>
     <Content Include="Views\Ejemplar\ListaDetails.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="AutorController_Create.sequencediagram" />
+    <None Include="AutorController_Delete.sequencediagram" />
+    <None Include="AutorController_Edit.sequencediagram" />
+    <None Include="AutorController_Edit_1.sequencediagram" />
+    <None Include="AutorController_Index.sequencediagram" />
+    <None Include="AutorController_Lista.sequencediagram" />
+    <None Include="ClasificacionController_Create.sequencediagram" />
+    <None Include="ClasificacionController_Delete.sequencediagram" />
+    <None Include="ClasificacionController_Edit.sequencediagram" />
+    <None Include="ClasificacionController_Lista.sequencediagram" />
+    <None Include="EditorialController_Create.sequencediagram" />
+    <None Include="EditorialController_Edit.sequencediagram" />
+    <None Include="EditorialController_Lista.sequencediagram" />
+    <None Include="PaisController_Create.sequencediagram" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AutorController_Create.sequencediagram.layout">
+      <DependentUpon>AutorController_Create.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutorController_Delete.sequencediagram.layout">
+      <DependentUpon>AutorController_Delete.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutorController_Edit.sequencediagram.layout">
+      <DependentUpon>AutorController_Edit.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutorController_Edit_1.sequencediagram.layout">
+      <DependentUpon>AutorController_Edit_1.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutorController_Index.sequencediagram.layout">
+      <DependentUpon>AutorController_Index.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutorController_Lista.sequencediagram.layout">
+      <DependentUpon>AutorController_Lista.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClasificacionController_Create.sequencediagram.layout">
+      <DependentUpon>ClasificacionController_Create.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClasificacionController_Delete.sequencediagram.layout">
+      <DependentUpon>ClasificacionController_Delete.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClasificacionController_Edit.sequencediagram.layout">
+      <DependentUpon>ClasificacionController_Edit.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClasificacionController_Lista.sequencediagram.layout">
+      <DependentUpon>ClasificacionController_Lista.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditorialController_Create.sequencediagram.layout">
+      <DependentUpon>EditorialController_Create.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditorialController_Edit.sequencediagram.layout">
+      <DependentUpon>EditorialController_Edit.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditorialController_Lista.sequencediagram.layout">
+      <DependentUpon>EditorialController_Lista.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PaisController_Create.sequencediagram.layout">
+      <DependentUpon>PaisController_Create.sequencediagram</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

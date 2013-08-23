@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+@*<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>*@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#nombres").focus();
@@ -16,7 +16,7 @@
                 },
                 apellidos: {
                     required : true,
-                    lettersOnly: "[a-zA-Z]+"
+                    lettersOnly: "([a-zA-Z]*/s*)*"
                 },
                 'pais.id': "required"
             }
